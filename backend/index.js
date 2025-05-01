@@ -37,7 +37,8 @@ app.use(
 app.use("/uploads", express.static("uploads"));
 
 // ✅ Stripe webhook must use raw body parsing BEFORE json middleware
-app.use("/webhook", bodyParser.raw({ type: "application/json" }), webhookRouter);
+app.use("/api/stripe/webhook", bodyParser.raw({ type: "application/json" }), webhookRouter);
+
 
 // ✅ Now apply regular JSON body parsing for the rest of the app
 app.use(express.json());

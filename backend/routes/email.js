@@ -1,6 +1,9 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import Booking from "../models/Booking.js"; // ✅ import your Booking model
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const router = express.Router();
 
@@ -25,13 +28,13 @@ router.post("/send-confirmation", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-        user: "kishorekumar20101999@gmail.com",
-        pass: "whdm crbc wstm brng",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     await transporter.sendMail({
-      from: "kishorekumar20101999@gmail.com",
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Booking Confirmation",
       html: `<h1>Booking Confirmed!</h1>

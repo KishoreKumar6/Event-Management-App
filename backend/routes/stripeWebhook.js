@@ -4,12 +4,12 @@ import { savePaymentToDB } from "../utils/mongoUtils.js";
 import Booking from "../models/Booking.js";
 import Event from "../models/Event.js"; // Make sure this exists
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
-const stripe = new Stripe(
-  "sk_test_51RGmT0Rsq3sRR7mnn3CN9FCaGd3UEZVoShipKgb4RpxLJnraKQskbCMPutvou9hhp43l9iBrjRt6R4n9Hy0GN2ao00iWK5ejI4"
-);
-const endpointSecret =
-  "whsec_e299f86aabcdad29f1e28ac08976d50455c884ec5dcb5792a527c62cdcd1a3ab";
+dotenv.config();
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const endpointSecret = (process.env.STRIPE_WEBHOOK_SECRET)
 
 const router = express.Router();
 
@@ -88,13 +88,13 @@ router.post("/", async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-          user: "kishorekumar20101999@gmail.com",
-          pass: "whdm crbc wstm brng",
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
         },
       });
 
       await transporter.sendMail({
-        from: "kishorekumar20101999@gmail.com",
+        from: process.env.EMAIL_USER,
         to: customer_email,
         subject: "Booking Confirmation",
         html: `
