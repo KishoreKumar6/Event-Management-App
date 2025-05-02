@@ -7,7 +7,7 @@ import { registerUser } from "../controllers/userController.js";
 
 const router = express.Router();
 
-router.post("/users/register", registerUser);
+router.post("/register", registerUser);
 
 router.post("/login", async (req, res) => {
   try {
