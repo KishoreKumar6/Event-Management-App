@@ -27,8 +27,8 @@ router.post("/create-checkout-session", async (req, res) => {
           quantity: ticketCount,
         },
       ],
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/payment",
+      success_url: "https://event-management-platform1.netlify.app/success",
+      cancel_url: "https://event-management-platform1.netlify.app/payment",
       metadata: {
         userId,
         eventId,
