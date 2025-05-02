@@ -2,14 +2,14 @@ import express from "express";
 import Stripe from "stripe";
 import { savePaymentToDB } from "../utils/mongoUtils.js";
 import Booking from "../models/Booking.js";
-import Event from "../models/Event.js"; // Make sure this exists
+import Event from "../models/Event.js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = (process.env.STRIPE_WEBHOOK_SECRET)
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const router = express.Router();
 
@@ -32,11 +32,7 @@ router.post("/", async (req, res) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    const {
-      customer_email,
-      amount_total,
-      metadata,
-    } = session;
+    const { customer_email, amount_total, metadata } = session;
 
     const { eventId, userId, ticketType, ticketCount, totalAmount } = metadata;
 
@@ -101,7 +97,9 @@ router.post("/", async (req, res) => {
           <h2>🎉 Thank you for your booking!</h2>
           <p><strong>Event:</strong> ${eventDetails.name}</p>
           <p><strong>Location:</strong> ${eventDetails.location}</p>
-          <p><strong>Date:</strong> ${new Date(eventDetails.date).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${new Date(
+            eventDetails.date
+          ).toLocaleDateString()}</p>
           <hr />
           <p><strong>Ticket Type:</strong> ${ticketType}</p>
           <p><strong>Ticket Count:</strong> ${ticketCount}</p>

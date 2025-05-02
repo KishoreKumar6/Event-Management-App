@@ -1,6 +1,6 @@
 // components/PrivateRoute.jsx
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children, allowedRole }) => {
   const user = useSelector((state) => state.auth.user);

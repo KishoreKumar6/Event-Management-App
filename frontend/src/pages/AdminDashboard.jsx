@@ -30,7 +30,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/events");
+        const res = await axios.get(
+          "https://event-management-app-2-21xj.onrender.com/api/events"
+        );
         setEvents(res.data);
         setFilteredEvents(res.data);
       } catch (error) {
@@ -44,7 +46,9 @@ const AdminDashboard = () => {
     if (isBookingsPage) {
       const fetchBookings = async () => {
         try {
-          const res = await axios.get("http://localhost:5000/api/bookings");
+          const res = await axios.get(
+            "https://event-management-app-2-21xj.onrender.com/api/bookings"
+          );
           setBookings(res.data);
         } catch (error) {
           console.error("Error fetching bookings:", error);
@@ -80,12 +84,20 @@ const AdminDashboard = () => {
 
   const navLinks = [
     { path: "/admin/dashboard", label: "Home", icon: <Home size={20} /> },
-    { path: "/admin/events", label: "Events", icon: <CalendarDays size={20} /> },
-    { path: "/admin/bookings", label: "Bookings", icon: <BookOpen size={20} /> },
+    {
+      path: "/admin/events",
+      label: "Events",
+      icon: <CalendarDays size={20} />,
+    },
+    {
+      path: "/admin/bookings",
+      label: "Bookings",
+      icon: <BookOpen size={20} />,
+    },
     { path: "/admin/users", label: "Users", icon: <Users size={20} /> },
     { path: "/admin/reports", label: "Reports", icon: <BarChart3 size={20} /> },
   ];
-  
+
   return (
     <div className="flex min-h-screen font-sans">
       {/* Sidebar */}
@@ -222,7 +234,7 @@ const AdminDashboard = () => {
                     <h3 className="font-semibold text-lg mb-2">{event.name}</h3>
                     <div className="flex flex-col md:flex-row gap-4">
                       <img
-                        src={`http://localhost:5000${event.image}`}
+                        src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
                         alt={event.name}
                         className="w-40 h-40 object-cover rounded"
                       />

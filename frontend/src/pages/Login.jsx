@@ -30,10 +30,13 @@ const Login = () => {
     try {
       const endpoint =
         role === "admin" ? "/api/admin/login" : "/api/users/login";
-      const { data } = await axios.post(`http://localhost:5000${endpoint}`, {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `https://event-management-app-2-21xj.onrender.com${endpoint}`,
+        {
+          email,
+          password,
+        }
+      );
       toast.success("Login successful! Redirecting...", { autoClose: 2500 });
 
       dispatch(

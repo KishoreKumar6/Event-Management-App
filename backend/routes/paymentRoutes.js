@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const router = express.Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // replace with your real secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post("/create-checkout-session", async (req, res) => {
   const { ticketType, ticketCount, totalAmount, email, eventId, userId } =

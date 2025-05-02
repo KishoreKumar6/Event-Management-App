@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import UserLayout from "../components/UserLayout"; // adjust path if needed
+import UserLayout from "../components/UserLayout";
 
 const UserProfile = () => {
   const user = useSelector((state) => state.auth.user);
@@ -22,7 +22,10 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/users/${user._id}`, formData);
+      await axios.put(
+        `https://event-management-app-2-21xj.onrender.com/api/users/${user._id}`,
+        formData
+      );
       setIsEditing(false);
       dispatch({ type: "LOGOUT" });
       navigate("/login");
@@ -84,9 +87,15 @@ const UserProfile = () => {
           </div>
         ) : (
           <div className="space-y-3 text-gray-700">
-            <p><strong>Name:</strong> {user?.name}</p>
-            <p><strong>Email:</strong> {user?.email}</p>
-            <p><strong>Role:</strong> {user?.role}</p>
+            <p>
+              <strong>Name:</strong> {user?.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {user?.email}
+            </p>
+            <p>
+              <strong>Role:</strong> {user?.role}
+            </p>
 
             <button
               className="mt-6 bg-yellow-500 hover:bg-yellow-600 transition px-5 py-2 rounded-lg text-white font-medium shadow"

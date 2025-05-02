@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 export async function sendCancellationEmail(toEmail, eventName) {
   console.log("📩 sendCancellationEmail triggered");
   console.log("✅ Loaded email user:", process.env.EMAIL_USER);
-  
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

@@ -22,7 +22,7 @@ const EventList = () => {
           {events.map((event) => (
             <div key={event._id} className="p-4 border shadow rounded-lg">
               <img
-                src={`http://localhost:5000${event.image}`}
+                src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
                 alt={event.name}
                 className="h-40 w-full object-cover mb-2 rounded"
               />

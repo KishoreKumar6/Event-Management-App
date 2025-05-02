@@ -8,7 +8,9 @@ const router = express.Router();
 // ✅ Get all bookings for a user
 router.get("/user/:userId", async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.params.userId }).populate("event");
+    const bookings = await Booking.find({ user: req.params.userId }).populate(
+      "event"
+    );
     res.json(bookings);
   } catch (error) {
     console.error(error);
@@ -43,7 +45,9 @@ router.delete("/:id", async (req, res) => {
     const bookingId = req.params.id;
 
     // Find and populate event and user to get required details
-    const booking = await Booking.findById(bookingId).populate("event").populate("user");
+    const booking = await Booking.findById(bookingId)
+      .populate("event")
+      .populate("user");
 
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
@@ -63,7 +67,6 @@ router.delete("/:id", async (req, res) => {
       console.warn("Email or Event Name missing, skipping email.");
     }
 
-    // Instead of deleting, you can mark as cancelled (safer)
     await Booking.findByIdAndUpdate(bookingId, { isCancelled: true });
 
     res.status(200).json({ message: "Booking cancelled successfully" });
@@ -73,7 +76,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Optional cancel booking logic if needed
 router.put("/cancel/:id", cancelBooking);
 
 export default router;

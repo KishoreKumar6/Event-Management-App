@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import UserLayout from "../components/UserLayout";
-import { toast, ToastContainer } from "react-toastify"; // ✅ You missed this
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UserBookings = () => {
@@ -13,7 +13,7 @@ const UserBookings = () => {
     const fetchBookings = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/bookings/user/${user._id}`
+          `https://event-management-app-2-21xj.onrender.com/api/bookings/user/${user._id}`
         );
         setBookings(res.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const UserBookings = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/bookings/cancel/${bookingId}`
+        `https://event-management-app-2-21xj.onrender.com/api/bookings/cancel/${bookingId}`
       );
 
       if (response.status === 200) {

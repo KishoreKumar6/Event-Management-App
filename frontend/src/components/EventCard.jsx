@@ -1,7 +1,11 @@
 const EventCard = ({ image, title, description, location, date }) => {
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4 flex">
-      <img src={`http://localhost:5000${event.image}`} alt={title} className="w-64 h-40 object-cover" />
+      <img
+        src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
+        alt={title}
+        className="w-64 h-40 object-cover"
+      />
       <div className="p-4 flex-1">
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="text-sm text-gray-600 mb-2">{description}</p>
@@ -11,7 +15,9 @@ const EventCard = ({ image, title, description, location, date }) => {
         </div>
       </div>
       <div className="p-4 flex items-center">
-        <button className="bg-black text-white px-4 py-2 rounded">View Details</button>
+        <button className="bg-black text-white px-4 py-2 rounded">
+          View Details
+        </button>
       </div>
     </div>
   );

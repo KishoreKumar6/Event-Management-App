@@ -36,13 +36,11 @@ export const adminLogin = async (req, res) => {
       role: admin.role,
       token,
     });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 export const getReports = async (req, res) => {
   try {

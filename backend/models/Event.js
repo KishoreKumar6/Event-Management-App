@@ -1,16 +1,18 @@
-// models/Event.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const eventSchema = new mongoose.Schema({
-  name: String,
-  image: String, // store Cloudinary URL
-  date: Date,
-  location: String,
-  description: String,
-  price: Number,
-  ticketsAvailable: Number,
+const eventSchema = new mongoose.Schema(
+  {
+    name: String,
+    image: String,
+    date: Date,
+    location: String,
+    description: String,
+    price: Number,
+    ticketsAvailable: Number,
 
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-}, { timestamps: true });
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('Event', eventSchema);
+export default mongoose.model("Event", eventSchema);

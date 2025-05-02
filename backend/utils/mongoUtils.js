@@ -1,6 +1,12 @@
-import Payment from "../models/PaymentModel.js"; // use your model name
+import Payment from "../models/PaymentModel.js";
 
-export const savePaymentToDB = async ({ email, amount, eventId, userId, paymentStatus }) => {
+export const savePaymentToDB = async ({
+  email,
+  amount,
+  eventId,
+  userId,
+  paymentStatus,
+}) => {
   try {
     const payment = new Payment({
       email,

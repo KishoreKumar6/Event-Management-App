@@ -27,7 +27,9 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/events");
+        const res = await axios.get(
+          "https://event-management-app-2-21xj.onrender.com/api/events"
+        );
         setEvents(res.data);
         setFilteredEvents(res.data);
       } catch (error) {
@@ -42,7 +44,7 @@ const UserDashboard = () => {
     const fetchBookings = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/bookings/user/${user?._id}`
+          `https://event-management-app-2-21xj.onrender.com/api/bookings/user/${user?._id}`
         );
         setBookings(res.data);
       } catch (err) {
@@ -133,7 +135,9 @@ const UserDashboard = () => {
             <h2 className="text-3xl font-semibold mb-2 text-gray-800">
               Hello, {user?.name} 👋
             </h2>
-            <p className="text-gray-600 mb-6">Browse and book upcoming events.</p>
+            <p className="text-gray-600 mb-6">
+              Browse and book upcoming events.
+            </p>
 
             <div className="flex flex-wrap gap-4 mb-6">
               <input
@@ -173,7 +177,7 @@ const UserDashboard = () => {
                     <h3 className="text-lg font-bold mb-2">{event.name}</h3>
                     <div className="flex flex-col md:flex-row gap-4">
                       <img
-                        src={`http://localhost:5000${event.image}`}
+                        src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
                         alt={event.name}
                         className="w-40 h-40 rounded object-cover"
                       />
@@ -202,9 +206,15 @@ const UserDashboard = () => {
         {currentView === "profile" && (
           <div className="bg-white p-6 rounded shadow max-w-xl">
             <h2 className="text-xl font-bold mb-4">Your Profile</h2>
-            <p><strong>Name:</strong> {user?.name}</p>
-            <p><strong>Email:</strong> {user?.email}</p>
-            <p><strong>Role:</strong> {user?.role}</p>
+            <p>
+              <strong>Name:</strong> {user?.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {user?.email}
+            </p>
+            <p>
+              <strong>Role:</strong> {user?.role}
+            </p>
             <button className="flex items-center gap-2 mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800">
               <Pencil size={16} /> Edit Profile
             </button>
@@ -216,7 +226,10 @@ const UserDashboard = () => {
             <h2 className="text-xl font-bold mb-4">Your Bookings</h2>
             {bookings.length > 0 ? (
               bookings.map((booking) => (
-                <div key={booking._id} className="bg-white p-4 mb-4 rounded shadow">
+                <div
+                  key={booking._id}
+                  className="bg-white p-4 mb-4 rounded shadow"
+                >
                   <h3 className="font-bold text-lg">{booking.event?.name}</h3>
                   <p>📍 {booking.event?.location}</p>
                   <p>📅 {new Date(booking.event?.date).toLocaleDateString()}</p>

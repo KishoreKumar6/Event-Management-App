@@ -1,6 +1,6 @@
 import express from "express";
 import nodemailer from "nodemailer";
-import Booking from "../models/Booking.js"; // ✅ import your Booking model
+import Booking from "../models/Booking.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,18 +11,18 @@ router.post("/send-confirmation", async (req, res) => {
   const { ticketType, ticketCount, totalAmount, email, eventId, userId } =
     req.body;
 
-    const ticketTypeMap = {
-      vip: "VIP",
-      general: "General Admission",
-    };
+  const ticketTypeMap = {
+    vip: "VIP",
+    general: "General Admission",
+  };
 
-    const incomingType = ticketType.toLowerCase();
-    const formattedTicketType = ticketTypeMap[incomingType];
+  const incomingType = ticketType.toLowerCase();
+  const formattedTicketType = ticketTypeMap[incomingType];
 
-    if (!formattedTicketType) {
-      return res.status(400).json({ message: "Invalid ticket type" });
-    }
-    
+  if (!formattedTicketType) {
+    return res.status(400).json({ message: "Invalid ticket type" });
+  }
+
   try {
     // 1. Send the email
     const transporter = nodemailer.createTransport({
@@ -48,8 +48,8 @@ router.post("/send-confirmation", async (req, res) => {
       user: userId,
       event: eventId,
       ticketType: formattedTicketType,
-      numberOfTickets: ticketCount, // 🛠️ correct field
-      totalPrice: totalAmount, // 🛠️ correct field
+      numberOfTickets: ticketCount,
+      totalPrice: totalAmount,
     });
 
     await booking.save(); // ✅ Save booking
