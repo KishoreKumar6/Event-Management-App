@@ -49,7 +49,11 @@ app.use(
 );
 
 // ✅ Raw body parser for Stripe webhook
-app.use("/api/stripe/webhook", webhookRouter);
+app.use(
+  "/api/stripe/webhook",
+  bodyParser.raw({ type: "application/json" }),
+  webhookRouter
+);
 
 // ✅ Standard JSON parser (must come after webhook)
 app.use(express.json());

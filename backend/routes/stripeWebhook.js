@@ -14,8 +14,9 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const router = express.Router();
 
 // ⚠️ Use express.raw here (NO bodyParser import needed)
-router.post("/", express.raw({ type: "application/json" }), async (req, res) => {
+router.post("/", async (req, res) => {
   console.log("🔥 Webhook route hit");
+  console.log("📥 Raw body received:", req.body.toString());
 
   const sig = req.headers["stripe-signature"];
   let event;
