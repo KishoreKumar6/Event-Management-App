@@ -36,7 +36,7 @@ const UserProfile = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        `https://event-management-app-2-21xj.onrender.com/api/users/${user._id}`,
+        `https://event-management-app-3-vs67.onrender.com/api/users/${user._id}`,
         formData
       );
       setIsEditing(false);
@@ -58,7 +58,7 @@ const UserProfile = () => {
 
     try {
       await axios.put(
-        `https://event-management-app-2-21xj.onrender.com/api/users/${user._id}/change-password`,
+        `https://event-management-app-3-vs67.onrender.com/api/users/${user._id}/change-password`,
         {
           currentPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword,

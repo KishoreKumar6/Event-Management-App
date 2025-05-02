@@ -19,7 +19,7 @@ const Register = () => {
         role === "admin" ? "/api/admin/register" : "/api/users/register";
 
       await axios.post(
-        `https://event-management-app-2-21xj.onrender.com${endpoint}`,
+        `https://event-management-app-3-vs67.onrender.com${endpoint}`,
         {
           name,
           email,

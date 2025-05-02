@@ -55,7 +55,7 @@ const CreateEvent = () => {
 
     try {
       await axios.post(
-        "https://event-management-app-2-21xj.onrender.com/api/events/create",
+        "https://event-management-app-3-vs67.onrender.com/api/events/create",
         formData,
         {
           headers: {

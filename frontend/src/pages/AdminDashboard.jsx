@@ -31,7 +31,7 @@ const AdminDashboard = () => {
     const fetchEvents = async () => {
       try {
         const res = await axios.get(
-          "https://event-management-app-2-21xj.onrender.com/api/events"
+          "https://event-management-app-3-vs67.onrender.com/api/events"
         );
         setEvents(res.data);
         setFilteredEvents(res.data);
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
       const fetchBookings = async () => {
         try {
           const res = await axios.get(
-            "https://event-management-app-2-21xj.onrender.com/api/bookings"
+            "https://event-management-app-3-vs67.onrender.com/api/bookings"
           );
           setBookings(res.data);
         } catch (error) {
@@ -234,7 +234,7 @@ const AdminDashboard = () => {
                     <h3 className="font-semibold text-lg mb-2">{event.name}</h3>
                     <div className="flex flex-col md:flex-row gap-4">
                       <img
-                        src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
+                        src={`https://event-management-app-3-vs67.onrender.com${event.image}`}
                         alt={event.name}
                         className="w-40 h-40 object-cover rounded"
                       />

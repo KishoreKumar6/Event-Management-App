@@ -2,7 +2,7 @@ const EventCard = ({ image, title, description, location, date }) => {
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4 flex">
       <img
-        src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
+        src={`https://event-management-app-3-vs67.onrender.com${event.image}`}
         alt={title}
         className="w-64 h-40 object-cover"
       />

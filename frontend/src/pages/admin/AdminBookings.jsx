@@ -14,7 +14,7 @@ const AdminBookings = () => {
         console.log("📦 Token from localStorage:", token);
 
         const response = await axios.get(
-          "https://event-management-app-2-21xj.onrender.com/api/admin/bookings",
+          "https://event-management-app-3-vs67.onrender.com/api/admin/bookings",
           {
             headers: {
               Authorization: `Bearer ${token}`,

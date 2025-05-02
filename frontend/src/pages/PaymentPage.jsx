@@ -19,7 +19,7 @@ const PaymentPage = () => {
       const stripe = await stripePromise;
 
       const response = await axios.post(
-        "https://event-management-app-2-21xj.onrender.com/api/create-checkout-session",
+        "https://event-management-app-3-vs67.onrender.com/api/create-checkout-session",
         {
           eventId: state.eventId,
           ticketType: state.ticketType,

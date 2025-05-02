@@ -6,14 +6,14 @@ const EventList = () => {
 
   const fetchEvents = async () => {
     const res = await axios.get(
-      "https://event-management-app-2-21xj.onrender.com/api/events"
+      "https://event-management-app-3-vs67.onrender.com/api/events"
     );
     setEvents(res.data);
   };
 
   const handleDelete = async (id) => {
     await axios.delete(
-      `https://event-management-app-2-21xj.onrender.com/api/events/${id}`
+      `https://event-management-app-3-vs67.onrender.com/api/events/${id}`
     );
     fetchEvents();
   };

@@ -14,7 +14,7 @@ const EventDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://event-management-app-2-21xj.onrender.com/api/events/${id}`)
+      .get(`https://event-management-app-3-vs67.onrender.com/api/events/${id}`)
       .then((res) => {
         setEvent(res.data);
         setTotalAmount(res.data.price);
@@ -54,7 +54,7 @@ const EventDetails = () => {
       <div className="p-6 max-w-5xl mx-auto bg-black">
         <div className="rounded-xl overflow-hidden shadow-lg bg-white">
           <img
-            src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
+            src={`https://event-management-app-3-vs67.onrender.com${event.image}`}
             alt={event.name}
             className="w-full h-[400px] object-cover"
           />

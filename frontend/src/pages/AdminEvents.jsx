@@ -12,7 +12,7 @@ const AdminEvents = () => {
   const fetchEvents = async () => {
     try {
       const res = await axios.get(
-        "https://event-management-app-2-21xj.onrender.com/api/events"
+        "https://event-management-app-3-vs67.onrender.com/api/events"
       );
       setEvents(res.data);
     } catch (error) {
@@ -28,7 +28,7 @@ const AdminEvents = () => {
 
     try {
       await axios.delete(
-        `https://event-management-app-2-21xj.onrender.com/api/events/${id}`
+        `https://event-management-app-3-vs67.onrender.com/api/events/${id}`
       );
       alert("Event deleted successfully.");
       fetchEvents();
@@ -52,7 +52,7 @@ const AdminEvents = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        `https://event-management-app-2-21xj.onrender.com/api/events/${editingEvent._id}`,
+        `https://event-management-app-3-vs67.onrender.com/api/events/${editingEvent._id}`,
         editingEvent
       );
       setIsOpen(false);
@@ -95,7 +95,7 @@ const AdminEvents = () => {
             {events.map((event) => (
               <div key={event._id} className="bg-white shadow p-4 rounded">
                 <img
-                  src={`https://event-management-app-2-21xj.onrender.com${event.image}`}
+                  src={`https://event-management-app-3-vs67.onrender.com${event.image}`}
                   alt={event.name}
                   className="h-40 w-full object-cover rounded mb-2"
                 />

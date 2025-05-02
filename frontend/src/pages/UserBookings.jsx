@@ -13,7 +13,7 @@ const UserBookings = () => {
     const fetchBookings = async () => {
       try {
         const res = await axios.get(
-          `https://event-management-app-2-21xj.onrender.com/api/bookings/user/${user._id}`
+          `https://event-management-app-3-vs67.onrender.com/api/bookings/user/${user._id}`
         );
         setBookings(res.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const UserBookings = () => {
 
     try {
       const response = await axios.put(
-        `https://event-management-app-2-21xj.onrender.com/api/bookings/cancel/${bookingId}`
+        `https://event-management-app-3-vs67.onrender.com/api/bookings/cancel/${bookingId}`
       );
 
       if (response.status === 200) {

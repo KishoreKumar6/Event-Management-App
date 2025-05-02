@@ -18,10 +18,10 @@ const UsersList = () => {
       // Fetch both Users and Admins
       const [userRes, adminRes] = await Promise.all([
         axios.get(
-          "https://event-management-app-2-21xj.onrender.com/api/admin/users"
+          "https://event-management-app-3-vs67.onrender.com/api/admin/users"
         ),
         axios.get(
-          "https://event-management-app-2-21xj.onrender.com/api/admin/admins"
+          "https://event-management-app-3-vs67.onrender.com/api/admin/admins"
         ),
       ]);
 
@@ -46,7 +46,7 @@ const UsersList = () => {
   const updateUser = async (id, field, value) => {
     try {
       await axios.put(
-        `https://event-management-app-2-21xj.onrender.com/api/admin/users/${id}`,
+        `https://event-management-app-3-vs67.onrender.com/api/admin/users/${id}`,
         { [field]: value }
       );
       toast.success("Updated successfully!");

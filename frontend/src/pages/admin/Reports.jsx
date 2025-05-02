@@ -15,7 +15,7 @@ const Reports = () => {
   const fetchReports = async () => {
     try {
       const response = await axios.get(
-        "https://event-management-app-2-21xj.onrender.com/api/admin/reports"
+        "https://event-management-app-3-vs67.onrender.com/api/admin/reports"
       );
       setReportData(response.data);
     } catch (error) {
