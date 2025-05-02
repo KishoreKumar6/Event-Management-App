@@ -81,7 +81,7 @@ const UserProfile = () => {
   return (
     <UserLayout>
       <ToastContainer />
-      <div className="max-w-lg mx-auto mt-32 bg-white p-8 rounded-2xl shadow-xl border border-yellow-300">
+      <div className="max-w-lg mx-auto  bg-white p-8 rounded-2xl shadow-xl border border-yellow-300">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
           Profile Details
         </h2>

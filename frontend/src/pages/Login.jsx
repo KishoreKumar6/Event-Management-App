@@ -25,6 +25,49 @@ const Login = () => {
     }
   }, [auth, navigate]);
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const endpoint =
+  //       role === "admin" ? "/api/admin/login" : "/api/users/login";
+  //     const { data } = await axios.post(
+  //       `https://event-management-app-2-21xj.onrender.com${endpoint}`,
+  //       {
+  //         email,
+  //         password,
+  //       }
+  //     );
+  //     toast.success("Login successful! Redirecting...", { autoClose: 2500 });
+
+  //     dispatch(
+  //       setUser({
+  //         user: {
+  //           _id: data._id,
+  //           name: data.name,
+  //           email: data.email,
+  //           role: data.role,
+  //         },
+  //         token: data.token,
+  //       })
+  //     );
+
+  //     const userRole = data.role?.toLowerCase();
+  //     setTimeout(() => {
+  //       if (userRole === "admin") navigate("/admin/dashboard");
+  //       else if (userRole === "user") navigate("/user/dashboard");
+  //       else
+  //         toast.warning("Login succeeded but role unknown.", {
+  //           autoClose: 3000,
+  //         });
+  //     }, 2500);
+  //   } catch (err) {
+  //     console.error("Login error:", err);
+  //     toast.error("Login failed. Please check your credentials.", {
+  //       autoClose: 4000,
+  //     });
+  //   }
+  // };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -37,29 +80,32 @@ const Login = () => {
           password,
         }
       );
+  
+      // Show toast BEFORE any dispatch or navigation
       toast.success("Login successful! Redirecting...", { autoClose: 2500 });
-
-      dispatch(
-        setUser({
-          user: {
-            _id: data._id,
-            name: data.name,
-            email: data.email,
-            role: data.role,
-          },
-          token: data.token,
-        })
-      );
-
-      const userRole = data.role?.toLowerCase();
+  
+      // Delay Redux and redirect slightly so toast is visible
       setTimeout(() => {
+        dispatch(
+          setUser({
+            user: {
+              _id: data._id,
+              name: data.name,
+              email: data.email,
+              role: data.role,
+            },
+            token: data.token,
+          })
+        );
+  
+        const userRole = data.role?.toLowerCase();
         if (userRole === "admin") navigate("/admin/dashboard");
         else if (userRole === "user") navigate("/user/dashboard");
         else
           toast.warning("Login succeeded but role unknown.", {
             autoClose: 3000,
           });
-      }, 2500);
+      }, 2500); // wait for toast to show
     } catch (err) {
       console.error("Login error:", err);
       toast.error("Login failed. Please check your credentials.", {
@@ -67,7 +113,7 @@ const Login = () => {
       });
     }
   };
-
+  
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
