@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../components/UserLayout";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserProfile = () => {
   const user = useSelector((state) => state.auth.user);
@@ -21,9 +23,6 @@ const UserProfile = () => {
     confirmPassword: "",
   });
 
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordSuccess, setPasswordSuccess] = useState("");
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,20 +40,19 @@ const UserProfile = () => {
         formData
       );
       setIsEditing(false);
+      toast.success("Profile updated! Please log in again.");
       dispatch({ type: "LOGOUT" });
       navigate("/login");
       window.location.reload();
     } catch (error) {
       console.error(error);
+      toast.error("Failed to update profile.");
     }
   };
 
   const handleChangePassword = async () => {
-    setPasswordError("");
-    setPasswordSuccess("");
-
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordError("New passwords do not match.");
+      toast.error("New passwords do not match.");
       return;
     }
 
@@ -66,7 +64,7 @@ const UserProfile = () => {
           newPassword: passwordData.newPassword,
         }
       );
-      setPasswordSuccess("Password changed successfully.");
+      toast.success("Password changed successfully!");
       setPasswordData({
         currentPassword: "",
         newPassword: "",
@@ -74,7 +72,7 @@ const UserProfile = () => {
       });
       setShowPasswordForm(false);
     } catch (error) {
-      setPasswordError(
+      toast.error(
         error.response?.data?.message || "Failed to change password."
       );
     }
@@ -82,6 +80,7 @@ const UserProfile = () => {
 
   return (
     <UserLayout>
+      <ToastContainer />
       <div className="max-w-lg mx-auto mt-32 bg-white p-8 rounded-2xl shadow-xl border border-yellow-300">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
           Profile Details
@@ -157,10 +156,6 @@ const UserProfile = () => {
             <h3 className="text-lg font-medium text-gray-800">
               Change Password
             </h3>
-            {passwordError && <p className="text-red-600">{passwordError}</p>}
-            {passwordSuccess && (
-              <p className="text-green-600">{passwordSuccess}</p>
-            )}
 
             <input
               type="password"
