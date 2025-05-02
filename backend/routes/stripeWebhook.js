@@ -17,6 +17,7 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   console.log("🔥 Webhook route hit");
   console.log("📥 Raw body received:", req.body.toString());
+  console.log("📬 Stripe-Signature header:", req.headers["stripe-signature"]);
 
   const sig = req.headers["stripe-signature"];
   let event;
