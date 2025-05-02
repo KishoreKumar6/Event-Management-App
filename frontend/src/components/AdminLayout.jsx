@@ -24,7 +24,7 @@ const AdminLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen font-sans">
       {/* Sidebar */}
-      <div className="w-64 h-screen bg-gradient-to-b from-red-600 to-red-400 text-white p-4 shadow-lg">
+      <div className="w-64 h-screen sticky top-0 bg-gradient-to-b from-red-600 to-red-400 text-white p-4 shadow-lg self-start">
         {/* Logo and Greeting */}
         <div className="flex flex-col items-center mb-10">
           <div className="text-3xl mb-2">🎉</div>

@@ -99,9 +99,9 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="flex min-h-screen font-sans">
+    <div className="flex min-h-screen font-sans items-stretch">
       {/* Sidebar */}
-      <aside className="w-64 h-screen bg-gradient-to-b from-red-600 to-red-400 text-white p-6">
+      <aside className="w-64 sticky top-0 self-start h-screen bg-gradient-to-b from-red-600 to-red-400 text-white p-6">
         <div className="text-center mb-10">
           <div className="text-3xl mb-1">🎉</div>
           <h2 className="text-xl font-extrabold">Krish Events</h2>

@@ -88,7 +88,8 @@ const UserDashboard = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64 h-screen bg-gradient-to-b from-red-600 to-red-400 p-5 shadow-xl text-white">
+      <div className="w-64 h-screen sticky top-0 bg-gradient-to-b from-red-600 to-red-400 text-white p-4 shadow-lg self-start">
+
         <h2 className="text-2xl font-bold mb-4 text-center">🎉 Krish Events</h2>
         <p className="text-sm mb-8 text-center">Welcome, {user?.name}</p>
 
@@ -96,7 +97,7 @@ const UserDashboard = () => {
           <li>
             <Link
               to="/user/dashboard"
-              className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-white hover:text-red-600 transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white hover:text-red-600 transition font-semibold "
             >
               <Home /> Home
             </Link>
@@ -104,7 +105,7 @@ const UserDashboard = () => {
           <li>
             <Link
               to="/user/profile"
-              className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-white hover:text-red-600 transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white hover:text-red-600 transition font-semibold "
             >
               <UserCircle /> Profile
             </Link>
@@ -112,7 +113,7 @@ const UserDashboard = () => {
           <li>
             <Link
               to="/user/bookings"
-              className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-white hover:text-red-600 transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white hover:text-red-600 transition font-semibold "
             >
               <BookOpen /> Bookings
             </Link>
@@ -120,7 +121,7 @@ const UserDashboard = () => {
           <li>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-2 px-4 py-2 rounded-md hover:bg-white hover:text-red-600 transition"
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white hover:text-red-600 transition font-semibold "
             >
               <LogOut /> Logout
             </button>

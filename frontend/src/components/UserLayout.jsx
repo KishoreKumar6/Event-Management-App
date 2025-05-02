@@ -23,15 +23,15 @@ const UserLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 h-screen bg-gradient-to-b from-red-600 to-red-400 text-white p-6">
+      <aside className="w-64 sticky top-0 self-start h-screen bg-gradient-to-b from-red-600 to-red-400 text-white p-6">
         <div className="text-center mb-10">
-          <div className="text-3xl mb-1">🎉</div>
-          <h2 className="text-xl font-extrabold">Krish Events</h2>
-          <p className="text-sm mt-1">Welcome, {user?.name || "User"}</p>
+          {/* <div className="text-3xl mb-1">🎉</div> */}
+          <h2 className="text-2xl font-bold mb-4 text-center">🎉 Krish Events</h2>
+          <p className="text-sm mb-8 text-center">Welcome, {user?.name || "User"}</p>
         </div>
 
         <nav>
-          <ul className="space-y-6 text-base">
+          <ul className="space-y-3">
             {navItems.map(({ path, label, icon }) => (
               <li key={path}>
                 <Link
@@ -39,7 +39,7 @@ const UserLayout = ({ children }) => {
                   className={`flex items-center gap-3 px-3 py-2 rounded-md transition ${
                     location.pathname === path
                       ? "bg-white bg-opacity-20 font-semibold text-red-600"
-                      : "hover:bg-white hover:bg-opacity-10 hover:text-red-600"
+                      : "hover:bg-white hover:bg-opacity-10 hover:text-red-600 font-semibold"
                   }`}
                 >
                   {icon} {label}
@@ -49,7 +49,7 @@ const UserLayout = ({ children }) => {
             <li>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-3 w-full text-left px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition hover:text-red-600"
+                className="flex items-center gap-3 w-full text-left px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition hover:text-red-600 font-semibold"
               >
                 <LogOut size={20} /> Logout
               </button>
