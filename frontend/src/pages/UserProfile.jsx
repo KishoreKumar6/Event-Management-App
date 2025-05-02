@@ -14,10 +14,24 @@ const UserProfile = () => {
     role: user?.role || "user",
   });
 
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePasswordChange = (e) => {
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
 
   const handleSave = async () => {
@@ -32,6 +46,37 @@ const UserProfile = () => {
       window.location.reload();
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    setPasswordError("");
+    setPasswordSuccess("");
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError("New passwords do not match.");
+      return;
+    }
+
+    try {
+      await axios.put(
+        `https://event-management-app-2-21xj.onrender.com/api/users/${user._id}/change-password`,
+        {
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }
+      );
+      setPasswordSuccess("Password changed successfully.");
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+      setShowPasswordForm(false);
+    } catch (error) {
+      setPasswordError(
+        error.response?.data?.message || "Failed to change password."
+      );
     }
   };
 
@@ -60,17 +105,10 @@ const UserProfile = () => {
               className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
               placeholder="Email"
             />
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-
             <div className="flex justify-between mt-6">
+              <p className="text-gray-500">
+                Logout and Login it will Updated 😊
+              </p>
               <button
                 className="bg-green-600 hover:bg-green-700 transition px-5 py-2 rounded-lg text-white font-medium shadow"
                 onClick={handleSave}
@@ -97,11 +135,63 @@ const UserProfile = () => {
               <strong>Role:</strong> {user?.role}
             </p>
 
+            <div className="mt-6 space-x-3">
+              <button
+                className="bg-yellow-500 hover:bg-yellow-600 transition px-5 py-2 rounded-lg text-white font-medium shadow"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit Profile
+              </button>
+              <button
+                className="bg-blue-600 hover:bg-blue-700 transition px-5 py-2 rounded-lg text-white font-medium shadow"
+                onClick={() => setShowPasswordForm(!showPasswordForm)}
+              >
+                {showPasswordForm ? "Cancel" : "Change Password"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showPasswordForm && (
+          <div className="mt-10 space-y-4 border-t pt-6">
+            <h3 className="text-lg font-medium text-gray-800">
+              Change Password
+            </h3>
+            {passwordError && <p className="text-red-600">{passwordError}</p>}
+            {passwordSuccess && (
+              <p className="text-green-600">{passwordSuccess}</p>
+            )}
+
+            <input
+              type="password"
+              name="currentPassword"
+              placeholder="Current Password"
+              value={passwordData.currentPassword}
+              onChange={handlePasswordChange}
+              className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <input
+              type="password"
+              name="newPassword"
+              placeholder="New Password"
+              value={passwordData.newPassword}
+              onChange={handlePasswordChange}
+              className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm New Password"
+              value={passwordData.confirmPassword}
+              onChange={handlePasswordChange}
+              className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+
             <button
-              className="mt-6 bg-yellow-500 hover:bg-yellow-600 transition px-5 py-2 rounded-lg text-white font-medium shadow"
-              onClick={() => setIsEditing(true)}
+              className="bg-blue-600 hover:bg-blue-700 transition px-5 py-2 rounded-lg text-white font-medium shadow"
+              onClick={handleChangePassword}
             >
-              Edit Profile
+              Update Password
             </button>
           </div>
         )}

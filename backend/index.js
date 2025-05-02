@@ -46,7 +46,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api", emailRoutes);
-app.use("/api", userRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api", paymentRoutes);
 
