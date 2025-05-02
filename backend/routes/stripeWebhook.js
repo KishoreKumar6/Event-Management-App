@@ -13,10 +13,11 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+// ⚠️ Use express.raw here (NO bodyParser import needed)
+router.post("/", express.raw({ type: "application/json" }), async (req, res) => {
   console.log("🔥 Webhook route hit");
-  const sig = req.headers["stripe-signature"];
 
+  const sig = req.headers["stripe-signature"];
   let event;
 
   try {
@@ -31,20 +32,9 @@ router.post("/", async (req, res) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-
     const { customer_email, amount_total, metadata } = session;
-
     const { eventId, userId, ticketType, ticketCount, totalAmount } = metadata;
 
-    console.log("🎟️ Checkout Session Object:", session);
-    console.log("💾 Preparing to save this to MongoDB:", {
-      email: customer_email,
-      amount: amount_total / 100,
-      eventId,
-      userId,
-    });
-
-    // ✅ Step 1: Save payment record
     try {
       await savePaymentToDB({
         email: customer_email,
@@ -58,7 +48,6 @@ router.post("/", async (req, res) => {
       console.error("❌ Failed to save payment to DB:", dbErr);
     }
 
-    // ✅ Step 2: Save booking record
     try {
       const booking = new Booking({
         user: userId,
@@ -67,19 +56,15 @@ router.post("/", async (req, res) => {
         numberOfTickets: parseInt(ticketCount),
         totalPrice: parseFloat(totalAmount),
       });
-
       await booking.save();
       console.log("✅ Booking saved to MongoDB");
     } catch (bookingErr) {
       console.error("❌ Failed to save booking:", bookingErr);
     }
 
-    // ✅ Step 3: Fetch event details and send confirmation email
     try {
       const eventDetails = await Event.findById(eventId);
-      if (!eventDetails) {
-        throw new Error("Event not found for confirmation email");
-      }
+      if (!eventDetails) throw new Error("Event not found");
 
       const transporter = nodemailer.createTransport({
         service: "Gmail",
@@ -97,20 +82,17 @@ router.post("/", async (req, res) => {
           <h2>🎉 Thank you for your booking!</h2>
           <p><strong>Event:</strong> ${eventDetails.name}</p>
           <p><strong>Location:</strong> ${eventDetails.location}</p>
-          <p><strong>Date:</strong> ${new Date(
-            eventDetails.date
-          ).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${new Date(eventDetails.date).toLocaleDateString()}</p>
           <hr />
           <p><strong>Ticket Type:</strong> ${ticketType}</p>
           <p><strong>Ticket Count:</strong> ${ticketCount}</p>
           <p><strong>Total Paid:</strong> ₹${totalAmount}</p>
-          <p>Your booking has been confirmed. Please keep this email for your records.</p>
         `,
       });
 
       console.log("📧 Confirmation email sent");
     } catch (emailErr) {
-      console.error("❌ Failed to send confirmation email:", emailErr);
+      console.error("❌ Failed to send email:", emailErr);
     }
   }
 
