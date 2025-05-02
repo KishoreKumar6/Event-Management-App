@@ -24,12 +24,24 @@ mongoose
   .then(() => console.log(`Connected to MongoDB: ${process.env.MONGO_URI}`))
   .catch((err) => console.log("MongoDB connection error:", err));
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://event-management-platform1.netlify.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // if you're using cookies or auth
   })
 );
+app.options("*", cors());
 
 // ✅ Serve static uploads
 app.use("/uploads", express.static("uploads"));
