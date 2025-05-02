@@ -33,8 +33,6 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", adminLogin);
 
-router.get("/bookings", verifyAdmin, getAllBookings);
-
 router.get("/bookings", protect, isAdmin, getAllBookings);
 
 router.get("/users", async (req, res) => {

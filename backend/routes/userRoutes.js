@@ -61,6 +61,6 @@ router.put('/:id/change-password', async (req, res) => {
   }
 });
 
-router.put("/users/:id", updateUserProfile);
+router.put("/:id", updateUserProfile);
 
 export default router;
