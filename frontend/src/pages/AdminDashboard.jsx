@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import bgImage from "../Images/blurImage.jpg";
 import { logout } from "../redux/authSlice";
 import {
   Home,
@@ -136,131 +137,154 @@ const AdminDashboard = () => {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8 bg-gray-50">
-        {isBookingsPage ? (
-          <section>
-            <h2 className="text-2xl font-bold mb-6">All Bookings</h2>
-            {bookings.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white rounded-lg shadow">
-                  <thead className="bg-gray-200 text-gray-700 uppercase text-sm">
-                    <tr>
-                      <th className="px-4 py-3 text-left">Booking ID</th>
-                      <th className="px-4 py-3 text-left">Event</th>
-                      <th className="px-4 py-3 text-left">User Name</th>
-                      <th className="px-4 py-3 text-left">User Email</th>
-                      <th className="px-4 py-3 text-left">Tickets</th>
-                      <th className="px-4 py-3 text-left">Total Price</th>
-                      <th className="px-4 py-3 text-left">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-gray-700 text-sm">
-                    {bookings.map((booking) => (
-                      <tr
-                        key={booking._id}
-                        className="border-b hover:bg-gray-100"
-                      >
-                        <td className="px-4 py-3">{booking._id}</td>
-                        <td className="px-4 py-3">
-                          {booking.event?.name || "N/A"}
-                        </td>
-                        <td className="px-4 py-3">
-                          {booking.user?.name || "N/A"}
-                        </td>
-                        <td className="px-4 py-3">
-                          {booking.user?.email || "N/A"}
-                        </td>
-                        <td className="px-4 py-3">
-                          {booking.numberOfTickets || booking.ticketCount}
-                        </td>
-                        <td className="px-4 py-3">
-                          ₹{booking.totalPrice || booking.totalAmount}
-                        </td>
-                        <td className="px-4 py-3">
-                          {new Date(booking.createdAt).toLocaleDateString()}
-                        </td>
+      <main
+        className="flex-1 p-8 text-white"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="bg-opacity-50 p-6 rounded-lg">
+          {isBookingsPage ? (
+            <section>
+              <h2 className="text-2xl font-bold mb-6">All Bookings</h2>
+              {bookings.length > 0 ? (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full bg-white rounded-lg shadow">
+                    <thead className="bg-gray-200 text-gray-700 uppercase text-sm">
+                      <tr>
+                        <th className="px-4 py-3 text-left">Booking ID</th>
+                        <th className="px-4 py-3 text-left">Event</th>
+                        <th className="px-4 py-3 text-left">User Name</th>
+                        <th className="px-4 py-3 text-left">User Email</th>
+                        <th className="px-4 py-3 text-left">Tickets</th>
+                        <th className="px-4 py-3 text-left">Total Price</th>
+                        <th className="px-4 py-3 text-left">Date</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="text-gray-700 text-sm">
+                      {bookings.map((booking) => (
+                        <tr
+                          key={booking._id}
+                          className="border-b hover:bg-gray-100"
+                        >
+                          <td className="px-4 py-3">{booking._id}</td>
+                          <td className="px-4 py-3">
+                            {booking.event?.name || "N/A"}
+                          </td>
+                          <td className="px-4 py-3">
+                            {booking.user?.name || "N/A"}
+                          </td>
+                          <td className="px-4 py-3">
+                            {booking.user?.email || "N/A"}
+                          </td>
+                          <td className="px-4 py-3">
+                            {booking.numberOfTickets || booking.ticketCount}
+                          </td>
+                          <td className="px-4 py-3">
+                            ₹{booking.totalPrice || booking.totalAmount}
+                          </td>
+                          <td className="px-4 py-3">
+                            {new Date(booking.createdAt).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="text-center text-gray-500">No bookings found.</p>
+              )}
+            </section>
+          ) : (
+            <section>
+              <h2 className="text-2xl font-bold mb-6">
+                Welcome, {user?.name || "Admin"}!!!
+              </h2>
+
+              {/* Filter Controls */}
+              <div className="flex flex-wrap gap-4 mb-8">
+                <input
+                  type="text"
+                  placeholder="Event Name"
+                  value={eventName}
+                  onChange={(e) => setEventName(e.target.value)}
+                  className="border p-2 rounded w-full sm:w-1/3"
+                />
+                <input
+                  type="date"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                  className="border p-2 rounded w-full sm:w-1/3"
+                />
+                <button
+                  onClick={clearFilters}
+                  className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded transition"
+                >
+                  Clear
+                </button>
+                <button
+                  onClick={handleFilter}
+                  className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded transition"
+                >
+                  Apply
+                </button>
               </div>
-            ) : (
-              <p className="text-center text-gray-500">No bookings found.</p>
-            )}
-          </section>
-        ) : (
-          <section>
-            <h2 className="text-2xl font-bold mb-6">
-              Welcome, {user?.name || "Admin"}!!!
-            </h2>
 
-            {/* Filter Controls */}
-            <div className="flex flex-wrap gap-4 mb-8">
-              <input
-                type="text"
-                placeholder="Event Name"
-                value={eventName}
-                onChange={(e) => setEventName(e.target.value)}
-                className="border p-2 rounded w-full sm:w-1/3"
-              />
-              <input
-                type="date"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
-                className="border p-2 rounded w-full sm:w-1/3"
-              />
-              <button
-                onClick={clearFilters}
-                className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded transition"
-              >
-                Clear
-              </button>
-              <button
-                onClick={handleFilter}
-                className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded transition"
-              >
-                Apply
-              </button>
-            </div>
-
-            {/* Events Display */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {filteredEvents.length > 0 ? (
-                filteredEvents.map((event) => (
-                  <div
-                    key={event._id}
-                    className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition"
-                  >
-                    <h3 className="font-semibold text-lg mb-2">{event.name}</h3>
-                    <div className="flex flex-col md:flex-row gap-4">
-                      <img
-                        src={`https://event-management-app-3-vs67.onrender.com${event.image}`}
-                        alt={event.name}
-                        className="w-40 h-40 object-cover rounded"
-                      />
-                      <div className="flex flex-col justify-between">
-                        <p className="text-gray-600 text-sm mb-2">
-                          📅 {new Date(event.date).toLocaleDateString("en-GB")}{" "}
-                          | 📍 {event.location}
-                        </p>
-                        <p className="text-gray-700 mb-3">
-                          {event.description}
-                        </p>
-                        <Link to={`/events/${event._id}`}>
-                          <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
-                            View Details
-                          </button>
-                        </Link>
+              {/* Events Display */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {filteredEvents.length > 0 ? (
+                  filteredEvents.map((event) => (
+                    <div
+                      key={event._id}
+                      className="bg-opacity-50 rounded-lg p-4 shadow transition-shadow duration-300 hover:shadow-[0_4px_30px_rgba(0,0,0,0.9)] border border-amber-50"
+                    >
+                      <h3 className="font-bold text-lg mb-2 text-white text-center bg-black rounded-lg">
+                        {event.name}
+                      </h3>
+                      <div className="flex flex-col md:flex-row gap-4">
+                        <img
+                          src={`https://event-management-app-3-vs67.onrender.com${
+                            event.image.startsWith("/")
+                              ? event.image
+                              : `/${event.image}`
+                          }`}
+                          alt={event.name}
+                          className="w-40 h-40 object-cover rounded"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src =
+                              "https://via.placeholder.com/150?text=Image+Not+Found";
+                          }}
+                        />
+                        <div className="flex flex-col justify-between">
+                          <p className="text-white text-sm mb-2">
+                            📅{" "}
+                            {new Date(event.date).toLocaleDateString("en-GB")} |
+                            📍 {event.location}
+                          </p>
+                          <p className="text-white mb-3">
+                            {event.description}
+                          </p>
+                          <Link to={`/events/${event._id}`}>
+                            <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                              View Details
+                            </button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500">No events found.</p>
-              )}
-            </div>
-          </section>
-        )}
+                  ))
+                ) : (
+                  <p className="text-gray-500">No events found.</p>
+                )}
+              </div>
+            </section>
+          )}
+        </div>
       </main>
     </div>
   );

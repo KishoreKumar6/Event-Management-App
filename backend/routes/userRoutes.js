@@ -63,4 +63,15 @@ router.put('/:id/change-password', async (req, res) => {
 
 router.put("/:id", updateUserProfile);
 
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // exclude passwords
+    res.json(users);
+  } catch (error) {
+    console.error("Failed to fetch users:", error);
+    res.status(500).json({ message: "Server error while fetching users" });
+  }
+});
+
+
 export default router;

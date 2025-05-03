@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 // import jwt from 'jsonwebtoken';
 import Admin from "../models/Admin.js";
 import { getAllBookings } from "../controllers/adminBookingController.js";
-import { verifyAdmin } from "../middlewares/authMiddleware.js"; // protect route
 import { adminLogin } from "../controllers/adminController.js";
 import { protect } from "../middlewares/protect.js";
 import { isAdmin } from "../middlewares/isAdmin.js";
