@@ -4,7 +4,7 @@ A full-featured Event Management Platform built with the **MERN stack** (MongoDB
 
 ## 🚀 Live Demo
 
-🌐 [Live App Link]([https://your-netlify-link.com](https://event-management-platform1.netlify.app/))  
+🌐 [Live App Link] : https://event-management-platform1.netlify.app/ 
 
 ---
 
